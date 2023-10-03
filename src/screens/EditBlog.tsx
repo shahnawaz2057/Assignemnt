@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState} from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 interface componentNameProps {}
 
@@ -9,6 +10,7 @@ const EditBlog = ({ route, navigation }) => {
   const { data } = route.params;
   const [title, setTitle] = useState(data.title);
   const [body, setBody] = useState(data.body);
+  const [isLoading, setIsLoading] = useState(false);
 
   
   console.log(data);
@@ -23,18 +25,20 @@ const EditBlog = ({ route, navigation }) => {
   }
 
   const onSave = async () => {
+    setIsLoading(true);
     const payload = {
       'id': data.id,
       'userId': data.userId,
       'title': title ? title : data.title,
       'body': body ? body : data.body
     }
-    console.log('payload', JSON.stringify(payload));
+    // console.log('payload', JSON.stringify(payload));
     
     const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${data.userId}`, 
           JSON.stringify(payload),
           { headers: {'Content-Type': 'application/json'} });
       
+          setIsLoading(false);
       if (response.status == 200) {
           Alert.alert('Alert Message', 'Post updated successfully', [
               {
@@ -49,6 +53,7 @@ const EditBlog = ({ route, navigation }) => {
     
   return (
     <View style={styles.container}>
+      <LoadingIndicator loading={isLoading}/>
         <View style={styles.section}>
             <Text style={styles.title}>Title</Text>
             <TextInput 
