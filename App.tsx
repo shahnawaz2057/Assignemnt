@@ -16,16 +16,16 @@ function App(): JSX.Element {
 
   useEffect(() => {
     const getuser =async () => {
-      const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${Math.floor(Math.random() * 10)}`);
+      const response = await axios.get(`https://jsonplaceholder.typicode.com/users/${Math.floor(Math.random() * 10)}`);  
       setUser(response.data);
     }
     getuser()
-  }, [])
+  }, []);
 
   const DrawerNavigator = () => (
     <Drawer.Navigator drawerContent={(props) => <CustomDrawer {...props} user={user} />}>
+      <Drawer.Screen name='Blogs' component={Blogs} initialParams={{'userId': user ? user.id: 1}}/>
       <Drawer.Screen name='Home' component={Home}  />
-      <Drawer.Screen name='Blogs' component={Blogs} />
     </Drawer.Navigator>
   )
 

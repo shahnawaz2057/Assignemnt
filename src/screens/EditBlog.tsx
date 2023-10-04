@@ -31,8 +31,7 @@ const EditBlog = ({ route, navigation }) => {
       'userId': data.userId,
       'title': title ? title : data.title,
       'body': body ? body : data.body
-    }
-    // console.log('payload', JSON.stringify(payload));
+    };
     
     const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${data.userId}`, 
           JSON.stringify(payload),

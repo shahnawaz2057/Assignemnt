@@ -71,7 +71,7 @@ const CustomDrawer = props => {
                 </View>
               )}
               icon={() => (<Icon name={item.icon} size={30} color={item.enabled ? "#1e90ff" : "grey"} />)}
-              onPress={() => {item.enabled && navigation.navigate(item.screen, {"userId": props.user.id})}}
+              onPress={() => {item.enabled && navigation.navigate(item.screen, {"userId": props.user.id ? props.user.id : 1})}}
             />
           )}
           renderSectionHeader={({section: {title}}) => (
@@ -110,12 +110,14 @@ const styles = StyleSheet.create({
   },
   drawerItemLabel: {
     fontWeight: '500',
-    padding: 0
+    padding: 0,
+    marginLeft: -20
   },
   drawerItemLabelDisabled: {
     fontWeight: '500',
     padding: 0,
-    color: 'grey'
+    color: 'grey',
+    marginLeft: -20
   },
   item: {
     // backgroundColor: '#f9c2ff',

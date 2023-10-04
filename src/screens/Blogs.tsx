@@ -26,14 +26,10 @@ const Blogs = ({route}) => {
       setBlogs(response.data);
     };
     getBlogs();
-  }, []);
+  }, [userId]);
 
-  // const cardSelectionHandler = (itemIndex: number) => {
-  //   console.log('pressed', itemIndex);
-  //   navigation.navigate('EditBlog', {data: blogs[itemIndex]})
-  // }
-
-  const onDelete = () => {}
+  const onDelete = () => {
+}
 
   const onSubmit = (itemIndex: number) => {
     navigation.navigate('EditBlog', {data: blogs[itemIndex]})
@@ -43,7 +39,6 @@ const Blogs = ({route}) => {
 
   const Item = ({title, body, index}: ItemProps) => (
     <Card>
-       {/* <TouchableNativeFeedback onPress={() => cardSelectionHandler(index)}> */}
         <View style={styles.cardContainer}>
             <View style={styles.imageView}>
               <Image
@@ -56,7 +51,6 @@ const Blogs = ({route}) => {
               <Text style={styles.body}>{body}</Text>
             </View>
         </View>
-       {/* </TouchableNativeFeedback>  */}
        <View style={{ justifyContent: 'flex-end', flexGrow: 1}}>
             <Footer submitTitle='Edit' cancelTitle='Delete' onCancel={onDelete} onSubmit={() => onSubmit(index)} />
         </View>

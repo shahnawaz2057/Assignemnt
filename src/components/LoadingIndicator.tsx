@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     loadingText:
     {
         fontSize: 14,
-        // fontFamily: font.Medium,
         color: '#BF2F1A'
     }
 })
