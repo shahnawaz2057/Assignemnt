@@ -5,7 +5,14 @@ import {View, StyleSheet, Button, TouchableOpacity, Text} from 'react-native';
  * Footer with 'Submit' and 'Cancel' Button.
  * @param {*} props
  */
-const Footer = props => {
+
+interface FooterProps {
+  cancelTitle: string;
+  submitTitle: string;
+  onCancel: () => void;
+  onSubmit: () => void;
+}
+const Footer: React.FC<FooterProps> = (props)=> {
 
   const { cancelTitle, submitTitle } = props
   return (

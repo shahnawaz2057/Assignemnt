@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useState} from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import LoadingIndicator from '../components/LoadingIndicator';
+import { RootStackParamList } from '../../App';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-interface componentNameProps {}
+type NavigationProps = NativeStackScreenProps<RootStackParamList, 'EditBlog'>;
 
-const EditBlog = ({ route, navigation }) => {
+const EditBlog = ({ route, navigation }: NavigationProps) => {
 
   const { data } = route.params;
   const [title, setTitle] = useState(data.title);
@@ -16,11 +18,11 @@ const EditBlog = ({ route, navigation }) => {
   console.log(data);
   
 
-  const titleChangeHandler = text => {
+  const titleChangeHandler = (text: string )=> {
       setTitle(text);
   }
 
-  const bodyChangeHandler = text => {
+  const bodyChangeHandler = (text: string ) => {
     setBody(text);
   }
 

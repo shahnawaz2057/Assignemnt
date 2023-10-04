@@ -1,7 +1,14 @@
 import React from 'react'
 import { StyleSheet, View, Modal, ActivityIndicator, Text } from 'react-native'
 
-const LoadingIndicator = (props) => {
+interface LoadingIndicatorProps {
+    loading: boolean;
+    animationType: "fade" | "none" | "slide" | undefined;
+    indicatorColor: string;
+    loadingText: string;
+  }
+
+const LoadingIndicator: React.FC<LoadingIndicatorProps> = (props) => {
     const {
         loading,
         animationType = 'fade',

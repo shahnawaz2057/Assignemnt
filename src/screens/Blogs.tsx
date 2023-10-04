@@ -2,19 +2,15 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {StyleSheet, View, Text, FlatList, TouchableNativeFeedback, Image } from 'react-native';
 import Card from '../components/Card';
-import { useNavigation } from '@react-navigation/native';
 import Footer from '../components/Footer';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootDrawerParamList } from '../../App'
+import { Blog } from '../models/Blog';
 
-interface Blog {
-    id: number,
-    title: string;
-    body: string;
-  }
+type NavigationProps = NativeStackScreenProps<RootDrawerParamList, 'Blogs'>;
 
-const Blogs = ({route}) => {
-  const [blogs, setBlogs] = useState([]);
-  const navigation = useNavigation();
-
+const Blogs = ({route, navigation}: NavigationProps) => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
   const { userId } = route.params;
 
   useEffect(() => {
@@ -23,17 +19,21 @@ const Blogs = ({route}) => {
         `https://jsonplaceholder.typicode.com/users/${userId ? userId : 1}/posts`,
       );
     //   console.log('response', response.data);
-      setBlogs(response.data);
+    const blogs: Blog[] = [];
+    for (const obj of response.data) {
+      const blog = new Blog(obj.id, obj.userId, obj.title, obj.body);
+      blogs.push(blog);
+    }
+      setBlogs(blogs);
     };
     getBlogs();
-  }, [userId]);
+  }, [userId]);  
 
-  const onDelete = () => {
-}
+  const onDelete = () => {};
 
   const onSubmit = (itemIndex: number) => {
     navigation.navigate('EditBlog', {data: blogs[itemIndex]})
-  }
+  };
 
   type ItemProps = {title: string, body: string, index: number};
 
@@ -61,7 +61,7 @@ const Blogs = ({route}) => {
     <View style={styles.container}>
       <FlatList
         data={blogs}
-        renderItem={({item, index}: { item: Blog, index: number }) => <Item title={item.title} body={item.body} index={index} />}
+        renderItem={({item, index}) => <Item title={item.title} body={item.body} index={index} />}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator= {false}
       />

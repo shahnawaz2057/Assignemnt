@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -6,7 +6,7 @@ import {
   StyleSheet,
   SectionList,
 } from 'react-native';
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,8 +32,8 @@ const menuList = [
   },
 ];
 
-const CustomDrawer = props => {
-
+const CustomDrawer = (props) => {
+  
   const navigation = useNavigation();
 
   return (
